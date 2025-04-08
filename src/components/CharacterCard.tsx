@@ -28,7 +28,7 @@ const CharacterCard = ({ character }: CharacterCardProps) => {
         className="character-image"
         loading="lazy"
         onError={(e) => {
-          e.currentTarget.src = "/path-to-fallback-image.jpg";
+          e.currentTarget.src = "/placeholder.jpg";
         }}
       />
       <div className="character-info">

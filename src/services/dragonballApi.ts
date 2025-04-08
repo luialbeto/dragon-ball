@@ -7,8 +7,7 @@ const cachedApi = setupCache(api, {
   methods: ["get"],
 });
 
-const API_BASE = "/api";
-
+const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api';
 export interface DragonBallCharacter {
   id: number;
   name: string;
@@ -65,8 +64,11 @@ export const fetchCharacters = async (
   }
 ) => {
   try {
-    if (!import.meta.env.VITE_API_KEY) {
-      throw new Error("API key is missing in environment variables");
+    const apiKey = import.meta.env.VITE_API_KEY;
+    if (!apiKey) {
+      throw new Error(
+        "API authentication failed. Please check your configuration."
+      );
     }
 
     const params = {
@@ -79,16 +81,11 @@ export const fetchCharacters = async (
       }, {} as Record<string, string>),
     };
 
-    const searchParams = new URLSearchParams(params);
-
-    const response = await cachedApi.get<
-      ApiResponse<DragonBallCharacter> | DragonBallCharacter[]
-    >(`${API_BASE}/characters`, {
-      params: searchParams,
+    const response = await cachedApi.get(`${API_BASE}/characters`, {
+      params,
       headers: {
-        Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
+        Authorization: `Bearer ${apiKey}`,
         "Accept-Version": "1.0.0",
-        "Content-Type": "application/json",
       },
     });
 

@@ -7,7 +7,7 @@
   padding-inline: 2rem;
   max-inline-size: 1200px;
   margin-inline: auto;
-  color: map-get(v.$text-colors, secondary);
+  color: map.get(v.$text-colors, secondary);
   background-color: black;
 
   .home-link {

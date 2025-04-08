@@ -8,11 +8,12 @@ import {
 import CharacterCard from "../components/CharacterCard";
 import { Spinner } from "../components/Spinner";
 import "./MainView.scss";
-import dragon from "../assets/dragonBallTitle.png"
+import dragon from "../assets/dragonBallTitle.png";
 
 const MainView = () => {
   const [characters, setCharacters] = useState<DragonBallCharacter[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [showFavorites, setShowFavorites] = useState(false);
   const { favorites } = useFavorites();
@@ -20,6 +21,7 @@ const MainView = () => {
   const loadCharacters = useCallback(
     async (page = 1) => {
       setLoading(true);
+      setError(null);
       try {
         const result = await fetchCharacters(searchTerm, page, {
           race: "",
@@ -27,6 +29,12 @@ const MainView = () => {
           affiliation: "",
         });
         setCharacters(result.characters);
+      } catch (err) {
+        setError(
+          err instanceof Error
+            ? err.message
+            : "Failed to load characters. Please try again later."
+        );
       } finally {
         setLoading(false);
       }
@@ -52,7 +60,7 @@ const MainView = () => {
         transition={{ type: "spring", stiffness: 100, damping: 15, mass: 1 }}
       >
         <div className="header-content">
-          <img src={dragon} alt="dragon-ball-title" className="header-logo"/>
+          <img src={dragon} alt="dragon-ball-title" className="header-logo" />
           <div className="header-controls">
             <div className="search-wrapper">
               <div className="search-container">
@@ -87,6 +95,11 @@ const MainView = () => {
         <AnimatePresence mode="wait">
           {loading ? (
             <Spinner />
+          ) : error ? (
+            <div className="error-message">
+              {error}
+              <button onClick={() => loadCharacters()}>Retry</button>
+            </div>
           ) : (
             <motion.div
               className="character-grid-container"

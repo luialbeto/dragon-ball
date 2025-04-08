@@ -5,7 +5,9 @@ const cachedApi = setupCache(api, {
     ttl: 24 * 60 * 60 * 1000,
     methods: ["get"],
 });
-const API_BASE = "/api";
+const API_BASE = import.meta.env.PROD
+    ? "https://dragonball-api.com/api"
+    : "/api";
 export const fetchCharacters = async (search, page = 1, filters) => {
     try {
         if (!import.meta.env.VITE_API_KEY) {

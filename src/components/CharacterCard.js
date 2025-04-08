@@ -15,7 +15,7 @@ const CharacterCard = ({ character }) => {
         }
     };
     return (_jsxs(Link, { to: `/character/${character.id}`, className: "character-card", children: [_jsx("img", { src: character.image, alt: character.name, className: "character-image", loading: "lazy", onError: (e) => {
-                    e.currentTarget.src = "/path-to-fallback-image.jpg";
+                    e.currentTarget.src = "/placeholder.jpg";
                 } }), _jsxs("div", { className: "character-info", children: [_jsx("h3", { className: "character-name", children: character.name }), _jsxs("p", { className: "character-ki", children: ["KI: ", character.ki] })] }), _jsx("button", { onClick: handleFavorite, className: `favorite-btn ${isFavorite ? "active" : ""}`, "aria-label": isFavorite ? "Remove favorite" : "Add favorite", children: isFavorite ? "❤️" : "🤍" })] }));
 };
 export default CharacterCard;

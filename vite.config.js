@@ -5,6 +5,9 @@ import path from "path";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export default defineConfig(({ mode }) => ({
     plugins: [react()],
+    define: {
+        'import.meta.env.VITE_API_KEY': JSON.stringify(process.env.VITE_API_KEY)
+    },
     build: {
         minify: mode === "production" ? "terser" : false,
         sourcemap: mode === "development",

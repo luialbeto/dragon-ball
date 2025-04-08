@@ -3,18 +3,18 @@ import { setupCache } from "axios-cache-interceptor";
 
 const api = axios.create();
 const cachedApi = setupCache(api, {
-  ttl: 24 * 60 * 60 * 1000,
-  methods: ["get"],
+  ttl: 15 * 60 * 1000,
 });
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api';
+const API_BASE =
+  import.meta.env.VITE_API_BASE_URL || "https://dragonball-api.com/api";
 export interface DragonBallCharacter {
   id: number;
   name: string;
   ki: string;
   maxKi: string;
   race: string;
-  gender: "Male" | "Female" | "Unknown";
+  gender: string;
   description: string;
   image: string;
   affiliation: string;
@@ -66,28 +66,32 @@ export const fetchCharacters = async (
   try {
     const apiKey = import.meta.env.VITE_API_KEY;
     if (!apiKey) {
-      throw new Error(
-        "API authentication failed. Please check your configuration."
-      );
+      throw new Error("API authentication required");
     }
 
-    const params = {
+    const cleanedFilters = Object.fromEntries(
+      Object.entries(filters || {}).filter(
+        ([_, v]) => v !== undefined && v !== ""
+      )
+    );
+
+    const params = new URLSearchParams({
       page: page.toString(),
       limit: "10",
       ...(search && { name: search }),
-      ...Object.entries(filters || {}).reduce((acc, [key, value]) => {
-        if (value) acc[key] = value;
-        return acc;
-      }, {} as Record<string, string>),
-    };
-
-    const response = await cachedApi.get(`${API_BASE}/characters`, {
-      params,
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Accept-Version": "1.0.0",
-      },
+      ...filters,
     });
+
+    const response = await cachedApi.get<{ items: DragonBallCharacter[] }>(
+      `${API_BASE}/characters`,
+      {
+        params,
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Accept-Version": "1.0.0",
+        },
+      }
+    );
 
     let responseData: ApiResponse<DragonBallCharacter>;
     if (Array.isArray(response.data)) {
@@ -118,10 +122,10 @@ export const fetchCharacters = async (
     }
 
     return {
-      characters: responseData.characters,
+      characters: response.data.items || [],
       pagination: {
-        totalPages: responseData.meta?.totalPages || 1,
-        currentPage: responseData.meta?.currentPage || page,
+        totalPages: Math.ceil(response.data.items.length / 10),
+        currentPage: page,
         links: responseData.links || {
           first: "",
           previous: "",
@@ -135,6 +139,8 @@ export const fetchCharacters = async (
       message: "Unknown error",
       status: 500,
       url: `${API_BASE}/characters`,
+      error: axios.isAxiosError(error) ? error.response?.data : error,
+
       params: {},
       stack: "",
     };

@@ -7,10 +7,19 @@
   },
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "https://dragonball-api.com/api/$1",
+      "src": "/api/characters",
+      "dest": "https://dragonball-api.com/api/characters",
       "headers": {
-        "Authorization": "Bearer $VITE_API_KEY"
+        "Authorization": "Bearer $VITE_API_KEY",
+        "Accept-Version": "1.0.0"
+      }
+    },
+    {
+      "src": "/api/characters/(.*)",
+      "dest": "https://dragonball-api.com/api/characters/$1",
+      "headers": {
+        "Authorization": "Bearer $VITE_API_KEY",
+        "Accept-Version": "1.0.0"
       }
     }
   ]

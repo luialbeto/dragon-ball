@@ -56,7 +56,7 @@ export default defineConfig(({ mode }) => {
       },
     },
     define: {
-      "import.meta.env": JSON.stringify(env),
-    },
+      'import.meta.env.VITE_API_KEY': JSON.stringify(env.VITE_API_KEY),
+      'import.meta.env.VITE_API_BASE_URL': JSON.stringify(env.VITE_API_BASE_URL),    },
   };
 });

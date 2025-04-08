@@ -5,22 +5,25 @@
       "VITE_API_BASE_URL": "https://dragonball-api.com/api"
     }
   },
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/characters",
-      "dest": "https://dragonball-api.com/api/characters",
-      "headers": {
-        "Authorization": "Bearer $VITE_API_KEY",
-        "Accept-Version": "1.0.0"
-      }
-    },
+      "source": "/api/:path*",
+      "destination": "https://dragonball-api.com/api/:path*"
+    }
+  ],
+  "headers": [
     {
-      "src": "/api/characters/(.*)",
-      "dest": "https://dragonball-api.com/api/characters/$1",
-      "headers": {
-        "Authorization": "Bearer $VITE_API_KEY",
-        "Accept-Version": "1.0.0"
-      }
+      "source": "/api/:path*",
+      "headers": [
+        {
+          "key": "Authorization",
+          "value": "Bearer $VITE_API_KEY"
+        },
+        {
+          "key": "Accept-Version",
+          "value": "1.0.0"
+        }
+      ]
     }
   ]
 }

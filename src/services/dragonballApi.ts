@@ -1,7 +1,10 @@
 import axios from "axios";
 import { setupCache } from "axios-cache-interceptor";
 
-const api = axios.create();
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL || "https://dragonball-api.com/api",
+});
+
 const cachedApi = setupCache(api, {
   ttl: 15 * 60 * 1000,
 });
@@ -69,11 +72,6 @@ export const fetchCharacters = async (
       throw new Error("API authentication required");
     }
 
-    const cleanedFilters = Object.fromEntries(
-      Object.entries(filters || {}).filter(
-        ([_, v]) => v !== undefined && v !== ""
-      )
-    );
 
     const params = new URLSearchParams({
       page: page.toString(),
@@ -82,16 +80,17 @@ export const fetchCharacters = async (
       ...filters,
     });
 
-    const response = await cachedApi.get<{ items: DragonBallCharacter[] }>(
-      `${API_BASE}/characters`,
-      {
-        params,
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-          "Accept-Version": "1.0.0",
-        },
-      }
-    );
+    const response = await cachedApi.get("/characters", {
+      params: {
+        page,
+        limit: 10,
+        ...(search && { name: search }),
+      },
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Accept-Version": "1.0.0",
+      },
+    });
 
     let responseData: ApiResponse<DragonBallCharacter>;
     if (Array.isArray(response.data)) {

@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { FavoritesProvider } from "@/contexts/FavoritesProvider";
+import FavoritesProvider from "@/contexts/FavoritesProvider";
 import MainView from "@/views/MainView";
 import DetailView from "@/views/DetailView";
 import ErrorBoundary from "@/components/ErrorBoundary";

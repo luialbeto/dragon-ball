@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
-export var FavoritesContext = createContext({
+export const FavoritesContext = createContext({
     favorites: [],
-    addFavorite: function () { },
-    removeFavorite: function () { },
+    addFavorite: () => { },
+    removeFavorite: () => { },
 });
-export var useFavorites = function () { return useContext(FavoritesContext); };
+export const useFavorites = () => useContext(FavoritesContext);

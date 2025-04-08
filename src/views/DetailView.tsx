@@ -8,9 +8,19 @@ import { Spinner } from "../components/Spinner";
 import { useFavorites } from "../contexts/FavoritesContext";
 import "./DetailView.scss";
 
+interface Comics {
+  available: number;
+  items: { name: string }[];
+}
+
+interface ExtendedDragonBallCharacter extends DragonBallCharacter {
+  comics?: Comics;
+}
+
 const DetailView = () => {
   const { id } = useParams<{ id: string }>();
-  const [character, setCharacter] = useState<DragonBallCharacter | null>(null);
+  const [character, setCharacter] =
+    useState<ExtendedDragonBallCharacter | null>(null);
   const [loading, setLoading] = useState(true);
   const { favorites, addFavorite, removeFavorite } = useFavorites();
 
@@ -19,9 +29,13 @@ const DetailView = () => {
       try {
         if (id) {
           const data = await fetchCharacterDetails(Number(id));
+          const extendedData = data as ExtendedDragonBallCharacter;
           setCharacter({
-            ...data,
-            comics: data.comics || { available: 0, items: [] },
+            ...extendedData,
+            comics: extendedData.comics || {
+              available: 0,
+              items: [],
+            },
           });
         }
       } catch (error) {
@@ -65,16 +79,13 @@ const DetailView = () => {
             </button>
           </div>
 
-          {(character.comics?.available || 0) > 0 && (
+          {character.comics && character.comics.available > 0 && (
             <div className="comics-section">
               <h3>Appears in {character.comics.available} comics:</h3>
               <div className="comics-grid">
-                {character.comics.items?.slice(0, 5).map((comic) => (
+                {character.comics.items.slice(0, 5).map((comic) => (
                   <div key={comic.name} className="comic-item">
                     <p>{comic.name}</p>
-                    {comic.date && (
-                      <span>{new Date(comic.date).getFullYear()}</span>
-                    )}
                   </div>
                 ))}
               </div>

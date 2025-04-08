@@ -5,7 +5,7 @@ import type {
   FavoritesProviderProps,
 } from "./favoritesTypes.ts";
 
-export function FavoritesProvider({ children }: FavoritesProviderProps) {
+export default function FavoritesProvider({ children }: FavoritesProviderProps) {
   const [favorites, setFavorites] = useState<string[]>(() => {
     const saved = localStorage.getItem("favorites");
     return saved ? JSON.parse(saved) : [];

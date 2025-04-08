@@ -1,0 +1,74 @@
+@use "../styles/variables" as v;
+@use "../styles/mixins" as m;
+
+.detail-view {
+  padding-block: 2rem;
+  padding-inline: 2rem;
+  max-inline-size: 1200px;
+  margin-inline: auto;
+  color: map-get(v.$text-colors, secondary);
+  background-color: black;
+
+  .home-link {
+    display: inline-block;
+    margin-block-end: 2rem;
+    color: v.$primary;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .character-info {
+    @include m.flex-container(center, flex-start, column);
+    gap: 2rem;
+    margin-block-end: 3rem;
+
+    img {
+      inline-size: 30%;
+      max-inline-size: 400px;
+      border-radius: 8px;
+      @include m.card-shadow;
+    }
+
+    h2 {
+      color: v.$primary;
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      inline-size: 100%;
+    }
+  }
+
+  .additional-info {
+    display: grid;
+    gap: 3rem;
+
+    .comics-section,
+    .transformations-section {
+      background: rgba(v.$secondary, 0.1);
+      padding: 1.5rem;
+      border-radius: 8px;
+    }
+  }
+
+  @include m.responsive(mobile) {
+    inline-size: 393px;
+    min-block-size: 3014.69px;
+    padding-block: 24px;
+    padding-inline: 1rem;
+    gap: 24px;
+
+    .character-info {
+      img {
+        max-inline-size: 50%;
+      }
+    }
+
+    .additional-info {
+      grid-template-columns: 1fr;
+    }
+  }
+}   

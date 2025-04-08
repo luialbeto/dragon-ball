@@ -1,0 +1,24 @@
+$primary: #FFD700 !default;
+$secondary: #2B2B2B !default;
+$accent: #ff00ff !default;
+
+$text-colors: (
+  primary: #FFFFFF,
+  secondary: #CCCCCC
+) !default;
+
+$breakpoints: (
+  mobile: 393px,
+  tablet: 768px,
+  desktop: 1024px
+) !default;
+
+$spacing: (
+  base: 1rem,
+  small: 0.5rem,
+  medium: 1.5rem,
+  large: 2rem
+) !default;
+
+$base-padding: 1rem !default;
+$base-margin: 1rem !default;

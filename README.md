@@ -2,9 +2,9 @@
 
 ![Dragon Ball App Screenshot](./public/app-screenshot.png)
 
-A React application showcasing Dragon Ball characters with responsive design, favorites system, and API caching.
+Una aplicación React que muestra personajes de Dragon Ball con diseño responsivo, sistema de favoritos y almacenamiento en caché de la API.
 
-## Architecture
+## Arquitectura
 
 ### Component Structure
 src/
@@ -18,46 +18,46 @@ src/
 └── contexts/ # Application state
 
 
-### Layered Architecture
-| Layer          | Tech                 | Description                          |
-|----------------|----------------------|--------------------------------------|
-| **UI**         | React 19 + TSX       | Component-based with Framer Motion   |
-| **State**      | Context API          | Favorites management                 |
-| **Services**   | Axios + Cache        | Cached API calls (24h TTL)           |
-| **Styling**    | SCSS Modules         | Logical properties + Responsive      |
-| **Build**      | Vite 4               | Lightning fast development           |
+### Arquitectura en Capas
+| Layer          | Tech                 | Descripción                               |
+|----------------|----------------------|-------------------------------------------|
+| **UI**         | React 19 + TSX       | Basada en componentes con Framer Motion   |
+| **State**      | Context API          | Gestión de favoritos                      |
+| **Services**   | Axios + Cache        | Llamadas a la API con Cache (24h TTL)     |
+| **Styling**    | SCSS Modules         | Propiedades lógicas + Responsivo          |
+| **Build**      | Vite 4               | Desarrollo ultrarrápido                   |
 
-## Key Features
+## Características Principales
 
 ### User Experience
 - **Responsive Grid Layout**
-  - 5 cards on desktop | 2 on mobile
-  - CSS Grid with breakpoint management
-- **Character Viewer**
-  - Detailed character profiles
-  - Transformation galleries
-  - Comic appearances
+  - 5 tarjetas en escritorio | 2 en móvil
+  - CSS Grid con gestión de puntos de ruptura
+- **Visor de personajes**
+  - Perfiles detallados de personajes
+  - Galerías de transformaciones
+  - Apariciones en cómics
 
 ### Performance
 - **API Caching**
-  - 24-hour TTL for all requests
-  - Deduplicated concurrent requests
+  - 24-hour TTL para todas las solicitudes
+  - Solicitudes concurrentes deduplicadas
 - **Optimized Assets**
   - Lazy-loaded images
-  - Code splitting via Vite
+  - División de código mediante Vite
 
 ### Mobile-First
 - **Touch-friendly UI**
   - 48px touch targets
   - Smooth transitions
-- **Adaptive Layout**
+- **Diseño adaptable**
   - 393px mobile viewport support
-  - Flexible typography with `clamp()`
+  - Tipografía flexible con `clamp()`
 
 ## Tech Stack
 
 ### Core
-- React 19 (with Hooks API)
+- React 19 (con Hooks API)
 - TypeScript 5
 - Vite 4
 
@@ -70,15 +70,15 @@ src/
 - Framer Motion animations
 
 ### API Layer
-- Axios with cache interceptor
+- Axios con cache interceptor
 - Dragon Ball API integration
 
-## 🚀 Getting Started
+## 🚀 Primeros Pasos
 
-### Prerequisites
+### Requisitos Previos
 - Node.js 18+
 
-### Installation
+### Instalación
 ```bash
 git clone 
 cd dragonball-zara
@@ -145,12 +145,12 @@ Breakpoints
 MIT © Luiz Araujo 2025
 
 Key improvements:
-1. Added visual hierarchy with emojis and sections
-2. Included detailed tech stack breakdown
-3. Added deployment instructions
-4. Improved project structure documentation
-5. Added testing and contribution guidelines
-6. Better command documentation
-7. Mobile-specific feature highlights
-8. API documentation reference
-9. License information
+Jerarquía visual añadida con emojis y secciones
+Desglose detallado de la pila tecnológica
+Instrucciones de despliegue incluidas
+Documentación mejorada de la estructura del proyecto
+Guías de pruebas y contribución añadidas
+Mejor documentación de comandos
+Resumen de características específicas para móviles
+Referencia a la documentación de la API
+Mejoras en accesibilidad

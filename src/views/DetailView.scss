@@ -1,5 +1,6 @@
 @use "../styles/variables" as v;
 @use "../styles/mixins" as m;
+@use "sass:map";
 
 .detail-view {
   padding-block: 2rem;

@@ -1,8 +1,19 @@
 {
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
   "build": {
     "env": {
-      "VITE_API_KEY": "@dragonball_api_key"
+      "VITE_API_KEY": "@dragonball_api_key",
+      "VITE_API_BASE_URL": "https://dragonball-api.com/api",
+      "NODE_ENV": "production"
     }
-  },
-  "routes": []
+  }
 }

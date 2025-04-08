@@ -8,7 +8,7 @@ import {
 import CharacterCard from "../components/CharacterCard";
 import { Spinner } from "../components/Spinner";
 import "./MainView.scss";
-import dragon from "../assets/dragonBallTitle.png";
+import dragon from "../../public/assets/dragonBallTitle.png";
 
 const MainView = () => {
   const [characters, setCharacters] = useState<DragonBallCharacter[]>([]);

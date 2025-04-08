@@ -10,7 +10,7 @@ const cachedApi = setupCache(api, {
 });
 
 const API_BASE =
-  import.meta.env.VITE_API_BASE_URL || "https://dragonball-api.com/api";
+  "https://dragonball-api.com/api";
 export interface DragonBallCharacter {
   id: number;
   name: string;

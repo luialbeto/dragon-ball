@@ -44,16 +44,7 @@ export default defineConfig(({ mode }) => {
       },
     },
     server: {
-      proxy: {
-        "/api": {
-          target: env.VITE_API_BASE_URL,
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ""),
-          headers: {
-            Authorization: `Bearer ${env.VITE_API_KEY}`,
-          },
-        },
-      },
+      
     },
     define: {
       'import.meta.env.VITE_API_KEY': JSON.stringify(env.VITE_API_KEY),

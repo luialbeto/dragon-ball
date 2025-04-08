@@ -1,29 +1,8 @@
 {
   "build": {
     "env": {
-      "VITE_API_KEY": "@dragonball_api_key",
-      "VITE_API_BASE_URL": "https://dragonball-api.com/api"
+      "VITE_API_KEY": "@dragonball_api_key"
     }
   },
-  "rewrites": [
-    {
-      "source": "/api/:path*",
-      "destination": "https://dragonball-api.com/api/:path*"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/api/:path*",
-      "headers": [
-        {
-          "key": "Authorization",
-          "value": "Bearer $VITE_API_KEY"
-        },
-        {
-          "key": "Accept-Version",
-          "value": "1.0.0"
-        }
-      ]
-    }
-  ]
+  "routes": []
 }
